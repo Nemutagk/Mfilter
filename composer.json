@@ -1,0 +1,21 @@
+{
+    "name": "nemutagk/mfilter",
+    "description": "Agrega filtros/busquedas, ordenamiento y páginado a modelos de Eloquent",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jose Alberto Cabrera",
+            "email": "nemutagk@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nemutagk\\Mfilter\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
