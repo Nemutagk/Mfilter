@@ -40,36 +40,23 @@ class CustomQueryBuilder {
 
     public function search($filter, $query) {
         return $query->where(function($query) use($filter) {
-            if (!is_array($filter['search'])) {
-                $isFirst = true;
+            $isFirst = true;
 
-                foreach($filter['columns'] as $column) {
-                    if ($isFirst) {
-                        $query->where($column, 'like', '%'.$filter['search'].'%');
-                        $isFirst=false;
-                    }else {
-                        $query->orWhere($column, 'like', '%'.$filter['search'].'%');
+            foreach($filter['columns'] as $column) {
+                if ($isFirst) {
+                    $isFirstValue = true;
+                    foreach($filter['search'] as $search) {
+                        if ($isFirstValue) {
+                            $query->where($column, 'like', '$'.$search.'%');
+                            $isFirstValue=false;
+                        }else {
+                            $query->orWhere($column, 'like', '$'.$search.'%');
+                        }
                     }
-                }
-            }else {
-                $isFirst = true;
-
-                foreach($filter['columns'] as $column) {
-                    if ($isFirst) {
-                        $isFirstValue = true;
-                        foreach($filter['search'] as $search) {
-                            if ($isFirstValue) {
-                                $query->where($column, 'like', '$'.$search.'%');
-                                $isFirstValue=false;
-                            }else {
-                                $query->orWhere($column, 'like', '$'.$search.'%');
-                            }
-                        }
-                        $isFirst=false;
-                    }else {
-                        foreach($filter['search'] as $search) {
-                            $query->orWhere($column, 'like', $search);
-                        }
+                    $isFirst=false;
+                }else {
+                    foreach($filter['search'] as $search) {
+                        $query->orWhere($column, 'like', $search);
                     }
                 }
             }

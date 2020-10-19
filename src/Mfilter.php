@@ -50,7 +50,7 @@ trait Mfilter
 		if (isset($data['search'])) {
 			$data['search'] = [
 				'columns' => $this->getSearchColumns()
-				,'search' => strpos($data['search'],',') == false ? $data['search'] : explode(',',$data['search'])
+				,'search' => explode(',',$data['search'])
 			];
 		}
 
